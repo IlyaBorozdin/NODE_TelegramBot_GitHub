@@ -4,6 +4,12 @@ node_modules/
 # Ignore any log files
 *.log
 
+#Ignore buffer images
+img/
+
+# Ignore local storage
+telegramStorage.json
+
 # Ignore local environment
 .env
 
