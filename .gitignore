@@ -5,7 +5,7 @@ node_modules/
 *.log
 
 #Ignore buffer images
-img/
+src/formatMsg/img/
 
 # Ignore local storage
 telegramStorage.json

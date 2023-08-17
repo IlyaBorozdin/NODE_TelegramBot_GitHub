@@ -14,13 +14,35 @@ class GitHubAPI {
             path.join(this.baseUrl, 'users', user),
             { headers: this.headers }
         )
-            .then((res) => {
-                return res.data;
-            })
-            .catch((err) => {
-                throw err;
-            });
+            .then((res) => res.data)
+            .catch((err) => Promise.reject(err));
     }
+
+    async *getRepos(user) {
+        let page = 1;
+    
+        try {
+            while (true) {
+                const res = await axios.get(path.join(this.baseUrl, 'users', user, 'repos'), {
+                    headers: this.headers,
+                    params: {
+                        per_page: 50,
+                        page: page
+                    }
+                });
+    
+                if (res.data.length === 0) {
+                    break;
+                }
+
+                yield res.data;
+    
+                page++;
+            }
+        } catch (err) {
+            throw err;
+        }
+    }    
 }
 
 module.exports = new GitHubAPI();
