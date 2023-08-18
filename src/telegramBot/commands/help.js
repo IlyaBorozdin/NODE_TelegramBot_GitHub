@@ -13,11 +13,13 @@ class HelpCommand extends Command {
             .command('help', async (ctx) => {
                 const keyboard = Markup.keyboard([
                     ['/start', '/help'],
-                    ['/user', '/set_GitHub']
+                    ['/user', '/set_GitHub'],
+                    ['/repos', '/repo'],
+                    ['/commits', '/pulls']
                 ]);
 
                 await ctx.reply(HELP, keyboard);
-                ctx.setState(undefined);
+                ctx.setState('default');
             });
     }
 }

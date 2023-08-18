@@ -2,7 +2,6 @@ const { Markup } = require('telegraf');
 
 const { START_MSG, SKIPED } = require('../../formatMsg/commomMsg');
 const Command = require('./command');
-const SetGitHub = require('./setGitHub');
 
 class StartCommand extends Command {
     constructor(bot) {
@@ -11,17 +10,20 @@ class StartCommand extends Command {
 
     handle() {
         this.bot
-            .command('start', async (ctx) => {
+            .command('start', async (ctx, next) => {
                 const inline = Markup.inlineKeyboard([
-                    Markup.button.callback('Skip', 'skip')
+                    Markup.button.callback('Skip', 'skip'),
+                    Markup.button.callback('Let\'s go', 'seting')
                 ]);
 
                 await ctx.reply(START_MSG(ctx.from), inline);
-                ctx.setState('set_GitHub');
             })
-            .action('skip', async (ctx) => {
+            .action('skip', async (ctx, next) => {
                 await ctx.reply(SKIPED);
-                ctx.setState(undefined);
+                ctx.setState('default');
+            })
+            .action('seting', async (ctx, next) => {
+                await ctx.reply('Click: /set_GitHub');
             });
     }
 }
