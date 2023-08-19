@@ -55,6 +55,11 @@ const INCORRECT_DATA = (type) =>
 const NO_PULLS = (repo) => 
     `Repository ${repo} has no pull requests.`
 
+const SET_NOTIFICSTION = (user, key) =>
+    `Pass the following data to the user you want to receive notifications from\\.\n` +
+    `*Webhook*: https://example\\.com/webhook/${user}\n` +
+    `*Secret Key*: ||${key.replace(/-/g, '\\-')}||`
+
 const SOME_ERROR = 
     'An error occurred. Please try again later.';
 
@@ -83,6 +88,7 @@ module.exports = {
     PULL_INFO,
     INCORRECT_DATA,
     NO_PULLS,
+    SET_NOTIFICSTION,
     SOME_ERROR,
     ENTER_USER,
     ENTER_REPO,

@@ -13,6 +13,7 @@ const RepoCommand = require('./commands/repo');
 const EmptyCommand = require('./commands/empty');
 const CommitsCommand = require('./commands/commits');
 const PullsCommand = require('./commands/pulls');
+const NotificationCommand = require('./commands/notification');
 
 class TelegramBot extends Telegraf {
     constructor(token) {
@@ -77,6 +78,7 @@ class TelegramBot extends Telegraf {
             RepoCommand,
             CommitsCommand,
             PullsCommand,
+            NotificationCommand,
             EmptyCommand
         ];
 

@@ -15,7 +15,8 @@ class HelpCommand extends Command {
                     ['/start', '/help'],
                     ['/user', '/set_GitHub'],
                     ['/repos', '/repo'],
-                    ['/commits', '/pulls']
+                    ['/commits', '/pulls'],
+                    ['/notification']
                 ]);
 
                 await ctx.reply(HELP, keyboard);

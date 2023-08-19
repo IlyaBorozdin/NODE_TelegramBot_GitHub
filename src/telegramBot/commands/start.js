@@ -24,6 +24,7 @@ class StartCommand extends Command {
             })
             .action('seting', async (ctx, next) => {
                 await ctx.reply('Click: /set_GitHub');
+                await ctx.reply('Click: /notification');
             });
     }
 }
