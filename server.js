@@ -12,3 +12,4 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     console.log('Use http://localhost:80/webhook/797527763');
 });
+
