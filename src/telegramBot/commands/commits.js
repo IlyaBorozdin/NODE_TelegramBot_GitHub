@@ -10,6 +10,9 @@ class CommitsCommand extends Command {
     handle() {
         this.bot
             .command('commits', async (ctx) => {
+                if (!ctx.session.lastViewedRepo.repo) {
+                    await ctx.emitState('repo');
+                }
                 const ghRepo = ctx.session.lastViewedRepo.repo;
                 const ghUser = ctx.session.lastViewedGitHub.login;
                 const data = await gitHubAPI.getCommits(ghUser, ghRepo);

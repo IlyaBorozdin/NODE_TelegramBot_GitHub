@@ -1,12 +1,12 @@
-const Command = require("./command");
+const Command = require('./command');
 const gitHubAPI = require('../../gitHubAPI/gitHubAPI');
 const Avatar = require('../../formatMsg/avatar');
+const InputError = require('../error/input');
 
 const {
     USER_INFO,
     ENTER_USER
 } = require('../../formatMsg/commomMsg');
-const InputError = require("../error/input");
 
 class UserCommand extends Command {
     constructor(bot) {

@@ -16,6 +16,9 @@ class RepoCommand extends Command {
             .on('text', async (ctx, next) => {
                 try {
                     const ghRepo = ctx.message.text.trim();
+                    if (!ctx.session.lastViewedGitHub.login) {
+                        await ctx.emitState('user');
+                    }
                     const ghUser = ctx.session.lastViewedGitHub.login;
 
                     const data = await gitHubAPI.getRepo(ghUser, ghRepo);

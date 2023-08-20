@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 const telegramBot = require('./src/telegramBot/telegramBot');
-const app = require('./src/gitHubNotification/server');
+const app = require('./src/gitHubNotification/webhook');
 
 const port = process.env.PORT || 80;
 

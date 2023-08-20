@@ -13,7 +13,7 @@ class StartCommand extends Command {
             .command('start', async (ctx, next) => {
                 const inline = Markup.inlineKeyboard([
                     Markup.button.callback('Skip', 'skip'),
-                    Markup.button.callback('Let\'s go', 'seting')
+                    Markup.button.callback('Let\'s go', 'setting')
                 ]);
 
                 await ctx.reply(START_MSG(ctx.from), inline);
@@ -22,7 +22,7 @@ class StartCommand extends Command {
                 await ctx.reply(SKIPED);
                 ctx.setState('default');
             })
-            .action('seting', async (ctx, next) => {
+            .action('setting', async (ctx, next) => {
                 await ctx.reply('Click: /set_GitHub');
                 await ctx.reply('Click: /notification');
             });

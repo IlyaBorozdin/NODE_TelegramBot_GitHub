@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const uuid = require('uuid');
 
 const Command = require("./command");
@@ -12,10 +11,8 @@ class NotificationCommand extends Command {
     handle() {
         this.bot
             .command('notification', async (ctx, next) => {
-                const secretKey = uuid.v4();
-                ctx.session.notifications = {
-                    secretKey: secretKey
-                };
+                const getKey = ctx.session.notifications.secretKey;
+                const secretKey = getKey ? getKey : uuid.v4();
 
                 await ctx.replyWithMarkdownV2(SET_NOTIFICSTION(
                     ctx.from.id,

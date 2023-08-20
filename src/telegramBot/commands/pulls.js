@@ -9,7 +9,10 @@ class PullsCommand extends Command {
 
     handle() {
         this.bot
-            .command('pulls', async (ctx) => {
+            .command('pulls', async (ctx, next) => {
+                if (!ctx.session.lastViewedRepo.repo) {
+                    await ctx.emitState('repo');
+                }
                 const ghRepo = ctx.session.lastViewedRepo.repo;
                 const ghUser = ctx.session.lastViewedGitHub.login;
                 const data = await gitHubAPI.getPulls(ghUser, ghRepo);
@@ -19,7 +22,7 @@ class PullsCommand extends Command {
                 }
 
                 for await (const pull of data) {
-                    await ctx.reply(PULL_INFO(commit));
+                    await ctx.reply(PULL_INFO(pull));
                 }
                 ctx.setState('default');
             });

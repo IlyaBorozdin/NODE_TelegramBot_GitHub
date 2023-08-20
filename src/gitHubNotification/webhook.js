@@ -2,7 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const getKey = require('./getKey');
 const telegramBot = require('../telegramBot/telegramBot');
-const formatNotification = require('./formatNotification');
+const formatNotification = require('../formatMsg/formatNotification');
 
 const app = express();
 

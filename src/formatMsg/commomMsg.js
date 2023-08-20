@@ -3,9 +3,6 @@ const START_MSG = (from) =>
     `I'm a GitHub integration bot.\n` +
     `Shell we start?`;
 
-const INPUT_ACCOUNT = 
-    'Enter your name on GitHub.';
-
 const USER_INFO = (data) =>
     `Name: ${data.name}\n` +
     `Username: @${data.login}\n` +
@@ -75,8 +72,20 @@ const SET_ACCOUNT =
 const SKIPED =
     'Fine! You can return to this at any time.';
 
+const INPUT_ACCOUNT = 
+    'Enter your name on GitHub.';
+
 const HELP = 
-    'By the way, you have several commands available, take a look.';
+    'By the way, you have several commands available, take a look.\n\n' + 
+    '/start - Getting started, you will be prompted to specify your GuideHub and allow notifications.\n' +
+    '/help - A list of commands with explanations will be displayed.\n' +
+    '/set_GitHub - I can, at your request, remember your name on GitHub.\n' +
+    '/user - You can view information about any GitHub user.\n' +
+    '/repos - List of repositories of different users.\n' + 
+    '/repo - You can get detailed information about a specific repository.\n' +
+    '/commits - View all commits in a repository.\n' + 
+    '/pulls - View all pull requests in a repository.\n' +
+    '/notification - You can tell your friends a link to our server and a secret key, after which you will receive notifications of their activity on GitHub.';
 
 module.exports = {
     START_MSG,
