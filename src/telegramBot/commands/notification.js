@@ -13,12 +13,15 @@ class NotificationCommand extends Command {
         this.bot
             .command('notification', async (ctx, next) => {
                 const secretKey = uuid.v4();
-                const hmac = crypto.createHash('sha1', secretKey);
+                ctx.session.notifications = {
+                    secretKey: secretKey
+                };
 
                 await ctx.replyWithMarkdownV2(SET_NOTIFICSTION(
-                    ctx.session.gitHubAccount.login,
+                    ctx.from.id,
                     secretKey
                 ));
+                ctx.setState('default');
             });
     }
 }

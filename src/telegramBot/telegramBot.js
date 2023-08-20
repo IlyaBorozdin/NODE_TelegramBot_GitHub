@@ -56,7 +56,7 @@ class TelegramBot extends Telegraf {
     launch() {
         
         this.use((new LocalSession({
-            database: 'telegramStorage.json',
+            database: process.env.STORAGE,
             property: 'session',
             storage: LocalSession.storageFileAsync,
             format: {

@@ -57,7 +57,7 @@ const NO_PULLS = (repo) =>
 
 const SET_NOTIFICSTION = (user, key) =>
     `Pass the following data to the user you want to receive notifications from\\.\n` +
-    `*Webhook*: https://example\\.com/webhook/${user}\n` +
+    `*Webhook*: ${(process.env.WEBHOOK_URL + user).replace(/\./g, '\\.')}\n` +
     `*Secret Key*: ||${key.replace(/-/g, '\\-')}||`
 
 const SOME_ERROR = 
