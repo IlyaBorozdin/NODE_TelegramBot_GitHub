@@ -1,12 +1,18 @@
 function formatNotification(data) {
     if (data.zen) {
         return formatWebhookConnected(data);
-    } else if (data.action) {
-        return formatGitHubAction(data);
-    } else if (data.event) {
-        return formatGitHubEvent(data);
     } else if (data.ref) {
         return formatCommit(data);
+    } else if (data.issue && data.action === 'opened') {
+        return formatIssue(data);
+    } else if (data.issue && data.action === 'created') {
+        return formatIssueComment(data);
+    } else if (data.issue && data.action === 'locked') {
+        return formatLockedIssue(data);
+    } else if (data.issue && data.action === 'unlocked') {
+        return formatUnlockedIssue(data);
+    } else if (data.issue && data.action === 'deleted') {
+        return formatDeletedIssue(data);
     } else {
         return 'Received an unknown notification format';
     }
@@ -20,22 +26,11 @@ function formatWebhookConnected(data) {
 
 function formatGitHubEvent(data) {
     switch (data.event) {
-        case 'issues':
-            return formatIssuesEvent(data);
         case 'pull_request':
             return formatPullRequestEvent(data);
         default:
             return `Received an unknown event type: ${data.event}`;
     }
-}
-
-function formatIssuesEvent(data) {
-    const issue = data.payload.issue;
-    return `New Issue in repository ${data.repository.name}\n` +
-        `Issue: ${issue.title}\n` +
-        `Description: ${issue.body}\n` +
-        `Author: ${issue.user.login}\n` +
-        `More details: ${issue.html_url}`;
 }
 
 function formatPullRequestEvent(data) {
@@ -68,6 +63,46 @@ function formatCommit(data) {
         `Message: ${commit.message}\n` +
         `Author: ${commit.author.username}\n` +
         `More details: ${data.repository.html_url}`;
+}
+
+function formatIssue(data) {
+    return `New Issue in repository ${data.repository.name}\n` +
+        `Issue: ${data.issue.title}\n` +
+        `Description: ${data.issue.body}\n` +
+        `Author: ${data.issue.user.login}\n` +
+        `More details: ${data.issue.html_url}`;
+}
+
+function formatIssueComment(data) {
+    return `New comment to Issue in repository ${data.repository.name}\n` +
+        `Issue: ${data.issue.title}\n` +
+        `Comment: ${data.comment.body}\n` +
+        `Author: ${data.comment.user.login}\n` +
+        `More details: ${data.comment.html_url}`;
+}
+
+function formatLockedIssue(data) {
+    return `The issue is locked in repository ${data.repository.name}\n` +
+        `Issue: ${data.issue.title}\n` +
+        `Description: ${data.issue.body}\n` +
+        `Author: ${data.issue.user.login}\n` +
+        `More details: ${data.issue.html_url}`;
+}
+
+function formatUnlockedIssue(data) {
+    return `The issue is unlocked in repository ${data.repository.name}\n` +
+        `Issue: ${data.issue.title}\n` +
+        `Description: ${data.issue.body}\n` +
+        `Author: ${data.issue.user.login}\n` +
+        `More details: ${data.issue.html_url}`;
+}
+
+function formatDeletedIssue(data) {
+    return `The issue is deleted in repository ${data.repository.name}\n` +
+        `Issue: ${data.issue.title}\n` +
+        `Description: ${data.issue.body}\n` +
+        `Author: ${data.issue.user.login}\n` +
+        `More details: ${data.issue.html_url}`;
 }
 
 module.exports = formatNotification;
