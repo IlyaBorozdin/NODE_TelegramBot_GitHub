@@ -6,7 +6,7 @@ function formatNotification(data) {
     } else if (data.event) {
         return formatGitHubEvent(data);
     } else if (data.ref) {
-        return formatGitHubRef(data);
+        return formatCommit(data);
     } else {
         return 'Received an unknown notification format';
     }
@@ -62,10 +62,9 @@ function formatDeletedAction(data) {
         `More details: ${data.repository.html_url}`;
 }
 
-function formatGitHubRef(data) {
-    const commit = data.payload.commits[0];
+function formatCommit(data) {
+    const commit = data.head_commit;
     return `New Commit in repository ${data.repository.name}\n` +
-        `Commit: ${commit.sha}\n` +
         `Message: ${commit.message}\n` +
         `Author: ${commit.author.username}\n` +
         `More details: ${data.repository.html_url}`;
