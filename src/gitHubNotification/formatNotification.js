@@ -5,6 +5,8 @@ function formatNotification(data) {
         return formatGitHubAction(data);
     } else if (data.event) {
         return formatGitHubEvent(data);
+    } else if (data.ref) {
+        return formatGitHubRef(data);
     } else {
         return 'Received an unknown notification format';
     }
@@ -18,8 +20,6 @@ function formatWebhookConnected(data) {
 
 function formatGitHubEvent(data) {
     switch (data.event) {
-        case 'push':
-            return formatPushEvent(data);
         case 'issues':
             return formatIssuesEvent(data);
         case 'pull_request':
@@ -27,15 +27,6 @@ function formatGitHubEvent(data) {
         default:
             return `Received an unknown event type: ${data.event}`;
     }
-}
-
-function formatPushEvent(data) {
-    const commit = data.payload.commits[0];
-    return `New Commit in repository ${data.repository.name}\n` +
-        `Commit: ${commit.sha}\n` +
-        `Message: ${commit.message}\n` +
-        `Author: ${commit.author.username}\n` +
-        `More details: ${data.repository.html_url}`;
 }
 
 function formatIssuesEvent(data) {
@@ -68,6 +59,15 @@ function formatGitHubAction(data) {
 function formatDeletedAction(data) {
     return `Webhook is deleted in repository ${data.repository.name}\n` +
         `Author: ${data.sender.login}\n` +
+        `More details: ${data.repository.html_url}`;
+}
+
+function formatGitHubRef(data) {
+    const commit = data.payload.commits[0];
+    return `New Commit in repository ${data.repository.name}\n` +
+        `Commit: ${commit.sha}\n` +
+        `Message: ${commit.message}\n` +
+        `Author: ${commit.author.username}\n` +
         `More details: ${data.repository.html_url}`;
 }
 
